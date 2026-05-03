@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import tk, messagebox
 import requests
 import json
 import os
@@ -11,13 +11,13 @@ FAVORITES_FILE = "favorites.json"
 # Загрузка избранных пользователей
 def load_favorites():
     if os.path.exists(FAVORITES_FILE):
-        with open(FAVORITES_FILE, 'r', encoding='utf-8') as f:
+        with open(FAVORITES_FILE, 'r', encoding='utf-8') as file:
             return json.load(f)
     return []
 
 # Сохранение избранных пользователей
 def save_favorites(favorites):
-    with open(FAVORITES_FILE, 'w', encoding='utf-8') as f:
+    with open(FAVORITES_FILE, 'w', encoding='utf-8') as file:
         json.dump(favorites, f, ensure_ascii=False, indent=2)
 
 class GitHubUserFinder:
@@ -33,20 +33,20 @@ class GitHubUserFinder:
 
     def setup_ui(self):
         # Поле ввода для поиска
-        search_frame = ttk.Frame(self.root)
+        search_frame = tk.Frame(self.root)
         search_frame.pack(pady=10, padx=10, fill='x')
 
-        ttk.Label(search_frame, text="Поиск пользователя GitHub:").pack(side='left')
-        self.search_entry = ttk.Entry(search_frame, width=50)
+        tk.Label(search_frame, text="Поиск пользователя GitHub:").pack(side='left')
+        self.search_entry = tk.Entry(search_frame, width=50)
         self.search_entry.pack(side='left', padx=5)
-        ttk.Button(search_frame, text="Найти", command=self.search_users).pack(side='left')
+        tk.Button(search_frame, text="Найти", command=self.search_users).pack(side='left')
 
         # Вкладки для результатов и избранного
-        self.notebook = ttk.Notebook(self.root)
+        self.notebook = tk.Notebook(self.root)
         self.notebook.pack(fill='both', expand=True, padx=10, pady=10)
 
         # Вкладка результатов поиска
-        self.results_frame = ttk.Frame(self.notebook)
+        self.results_frame = tk.Frame(self.notebook)
         self.notebook.add(self.results_frame, text="Результаты поиска")
 
         self.results_tree = ttk.Treeview(
@@ -61,7 +61,7 @@ class GitHubUserFinder:
         self.results_tree.pack(fill='both', expand=True)
 
         # Кнопка добавления в избранное
-        ttk.Button(
+        tk.Button(
             self.results_frame,
             text="Добавить в избранное",
             command=self.add_to_favorites
@@ -83,7 +83,7 @@ class GitHubUserFinder:
         self.favorites_tree.pack(fill='both', expand=True)
 
         # Кнопка удаления из избранного
-        ttk.Button(
+        tk.Button(
             self.favorites_frame,
             text="Удалить из избранного",
             command=self.remove_from_favorites
